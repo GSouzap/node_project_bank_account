@@ -25,3 +25,4 @@
 - [X] Não deve ser possível fazer saque quando o saldo for insuficiente
 - [X] Não deve ser possível retornar o balance de uma conta não existente
 - [X] Não deve ser possível excluir uma conta não existente
+- [X] Não deve ser possível excluir uma conta que contenha saldo

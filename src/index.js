@@ -159,11 +159,23 @@ app.get("/account", (request, response) => {
 });
 
 //Rota que permite a deleção da conta bancária
-app.delete("/account", (request, response) => {
+app.delete("/account/:id", (request, response) => {
+  const { id } = request.params;
   const { customer } = request;
+  
+  const balance = getBalance(customer.statement); 
+  const accountIndex = customers.findIndex(customer => customer.id === id);
+
+  if (accountIndex === -1) {
+    return response.status(404).json({ error: "Account Not Found" });
+  }
+  
+  if (balance !== 0){
+    return response.status(400).json({ error: "To delete an account, it isn't have found" });
+  }
 
   //Splice espera 2 parâmetros: 1º: Onde começa a remoção; 2º: Onde termina a remoção. (Isso tudo claro dentro de um array)
-  customers.splice(customer, 1);
+  customers.splice(accountIndex, 1);
 
   return response.status(200).json(customers);
 });
